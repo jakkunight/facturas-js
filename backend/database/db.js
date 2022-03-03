@@ -3,7 +3,7 @@ const { promisify } = require('util');
 
 const db = mysql.createPool({
     host: "localhost",
-    port: "3360",
+    port: "3306",
     database: "db",
     user: "user",
     password: "password"
