@@ -1,4 +1,5 @@
 const db = require('..database/db');
+const { application } = require('express');
 
 const crud = {};
 
@@ -106,6 +107,155 @@ crud.delete_row = async (table, id) => {
         }
     }else{
         console.log("[CRUD -> delete_row()] ERROR. THE DATA IS IN BLANK.");
+        return -1;
+    }
+};
+
+crud.find_row_by_id = async (table, id) => {
+    if(table && id){
+        if(typeof table === "string" && typeof id === "string"){
+            try{
+                const rows = await db.query("SELECT * FROM" + table + " WHERE id = ?", [id]);
+                if(rows){
+                    console.log("[CRUD -> find_row_by_id()] QUERY OK.");
+                    return rows[0];
+                }else{
+                    console.log("[CRUD -> find_row_by_id()] FATAL ERROR.");
+                    return -1;
+                }
+            }catch(error){
+                console.log("[CRUD -> find_row_by_id()] FATAL ERROR.");
+                console.log(error);
+                return -1;
+            }
+        }else{
+            console.log("[CRUD -> find_row_by_id()] ERROR. THE DATATYPES DOESN'T MATCH.");
+            return -1;
+        }
+    }else{
+        console.log("[CRUD -> find_row_by_id()] ERROR. THE DATA IS IN BLANK.");
+        return -1;
+    }
+};
+
+crud.find_row_by_key = async (table, key, value) => {
+    if(table && key && value){
+        if(typeof table === "string" && typeof key === "string" && (typeof value === "string" || typeof value === "number" || typeof value === "boolean")){
+            try{
+                const rows = await db.query("SELECT * FROM" + table + " WHERE " + key + " = ?", [value]);
+                if(rows){
+                    console.log("[CRUD -> find_row_by_key()] QUERY OK.");
+                    return rows[0];
+                }else{
+                    console.log("[CRUD -> find_row_by_key()] FATAL ERROR.");
+                    return -1;
+                }
+            }catch(error){
+                console.log("[CRUD -> find_row_by_key()] FATAL ERROR.");
+                console.log(error);
+                return -1;
+            }
+        }else{
+            console.log("[CRUD -> find_row_by_key()] ERROR. THE DATATYPES DOESN'T MATCH.");
+            return -1;
+        }
+    }else{
+        console.log("[CRUD -> find_row_by_key()] ERROR. THE DATA IS IN BLANK.");
+        return -1;
+    }
+};
+
+crud.search_row_by_key = async (table, key, value) => {
+    if(table && key && value){
+        if(typeof table === "string" && typeof key === "string" && (typeof value === "string" || typeof value === "number" || typeof value === "boolean")){
+            try{
+                const rows = await db.query("SELECT * FROM" + table + " WHERE " + key + " LIKE %?%", [value]);
+                if(rows){
+                    console.log("[CRUD -> search_row_by_key()] QUERY OK.");
+                    return rows[0];
+                }else{
+                    console.log("[CRUD -> search_row_by_key()] FATAL ERROR.");
+                    return -1;
+                }
+            }catch(error){
+                console.log("[CRUD -> search_row_by_key()] FATAL ERROR.");
+                console.log(error);
+                return -1;
+            }
+        }else{
+            console.log("[CRUD -> search_row_by_key()] ERROR. THE DATATYPES DOESN'T MATCH.");
+            return -1;
+        }
+    }else{
+        console.log("[CRUD -> search_row_by_key()] ERROR. THE DATA IS IN BLANK.");
+        return -1;
+    }
+};
+
+crud.search_row_by_keys = async (table, keys, values) => {
+    if(table && keys && values){
+        if(typeof table === "string" && typeof keys === "object" && typeof values === "object" && keys.length === values.length){
+            try{
+                var query = "SELECT * FROM" + table + " WHERE ";
+                for(var i = 0; i < keys.length; i++){
+                    query += keys[i] + " LIKE '%" + values + "%'"
+                    if(i != keys.length - 1){
+                        query += " OR";
+                    }
+                }
+                const rows = await db.query(query);
+                if(rows){
+                    console.log("[CRUD -> search_row_by_keys()] QUERY OK.");
+                    return rows[0];
+                }else{
+                    console.log("[CRUD -> search_row_by_keys()] FATAL ERROR.");
+                    return -1;
+                }
+            }catch(error){
+                console.log("[CRUD -> search_row_by_keys()] FATAL ERROR.");
+                console.log(error);
+                return -1;
+            }
+        }else{
+            console.log("[CRUD -> search_row_by_keys()] ERROR. THE DATATYPES DOESN'T MATCH.");
+            return -1;
+        }
+    }else{
+        console.log("[CRUD -> search_row_by_keys()] ERROR. THE DATA IS IN BLANK.");
+        return -1;
+    }
+};
+
+crud.find_row_by_keys = async (table, keys, values) => {
+    if(table && keys && values){
+        if(typeof table === "string" && typeof keys === "object" && typeof values === "object" && keys.length === values.length){
+            try{
+                var query = "SELECT * FROM" + table + " WHERE ";
+                for(var i = 0; i < keys.length; i++){
+                    query += keys[i] + " = '%" + values + "%'"
+                    if(i != keys.length - 1){
+                        query += " AND"
+                    }
+                }
+                const rows = await db.query(query);
+                if(rows){
+                    console.log("[CRUD -> find_row_by_keys()] QUERY OK.");
+                    return rows[0];
+                }else{
+                    console.log("[CRUD -> find_row_by_keys()] FATAL ERROR.");
+                    return -1;
+                }
+            }catch(error){
+                console.log("[CRUD -> find_row_by_keys()] FATAL ERROR.");
+                console.log(error);
+                return -1;
+            }
+        }else{
+            console.log("[CRUD -> find_row_by_keys()] ERROR. THE DATATYPES DOESN'T MATCH.");
+            return -1;
+        }
+    }else{
+        console.log("[CRUD -> find_row_by_keys()] ERROR. THE DATA IS IN BLANK.");
         return -1;
     }
 };
