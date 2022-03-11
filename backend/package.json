@@ -24,6 +24,7 @@
     "mysqldump": "^3.2.0",
     "passport": "^0.5.2",
     "passport-custom": "^1.1.1",
+    "passport-local": "^1.0.0",
     "socket.io": "^4.4.1"
   }
 }
