@@ -1,5 +1,4 @@
-const db = require('..database/db');
-const { application } = require('express');
+const db = require('../database/db');
 
 const crud = {};
 
@@ -35,7 +34,7 @@ crud.read_table = async (table) => {
         if(typeof table === "string"){
             try{
                 const rows = await db.query("SELECT * FROM" + table);
-                if(rows){
+                if(rows.length){
                     console.log("[CRUD -> read_table()] QUERY OK.");
                     return rows;
                 }else{
@@ -116,7 +115,7 @@ crud.find_row_by_id = async (table, id) => {
         if(typeof table === "string" && typeof id === "string"){
             try{
                 const rows = await db.query("SELECT * FROM" + table + " WHERE id = ?", [id]);
-                if(rows){
+                if(rows.length){
                     console.log("[CRUD -> find_row_by_id()] QUERY OK.");
                     return rows[0];
                 }else{
@@ -143,7 +142,7 @@ crud.find_row_by_key = async (table, key, value) => {
         if(typeof table === "string" && typeof key === "string" && (typeof value === "string" || typeof value === "number" || typeof value === "boolean")){
             try{
                 const rows = await db.query("SELECT * FROM" + table + " WHERE " + key + " = ?", [value]);
-                if(rows){
+                if(rows.length){
                     console.log("[CRUD -> find_row_by_key()] QUERY OK.");
                     return rows[0];
                 }else{
@@ -170,7 +169,7 @@ crud.search_row_by_key = async (table, key, value) => {
         if(typeof table === "string" && typeof key === "string" && (typeof value === "string" || typeof value === "number" || typeof value === "boolean")){
             try{
                 const rows = await db.query("SELECT * FROM" + table + " WHERE " + key + " LIKE %?%", [value]);
-                if(rows){
+                if(rows.length){
                     console.log("[CRUD -> search_row_by_key()] QUERY OK.");
                     return rows[0];
                 }else{
@@ -204,7 +203,7 @@ crud.search_row_by_keys = async (table, keys, values) => {
                     }
                 }
                 const rows = await db.query(query);
-                if(rows){
+                if(rows.length){
                     console.log("[CRUD -> search_row_by_keys()] QUERY OK.");
                     return rows[0];
                 }else{
@@ -238,7 +237,7 @@ crud.find_row_by_keys = async (table, keys, values) => {
                     }
                 }
                 const rows = await db.query(query);
-                if(rows){
+                if(rows.length){
                     console.log("[CRUD -> find_row_by_keys()] QUERY OK.");
                     return rows[0];
                 }else{
