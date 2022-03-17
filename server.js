@@ -13,6 +13,9 @@ app.use(cors({
     optionsSuccessStatus: 200
 }));
 app.use(fileupload());
+app.use(express.urlencoded({
+    extended: true
+}));
 
 app.use(async (req, res, next) => {
     console.log(`[${req.method.toUpperCase()}] ${req.protocol}://${req.hostname}:${app.get('port')}${req.url}`);

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>System</title>
+</head>
+<body>
+    <h1>Hello Doumo</h1>
+    <h3>[READ_TABLE]</h3>
+    <div id="read_table" >
+        <button>Read Products</button>
+    </div>
+    <h3>[INSERT_ROW]</h3>
+    <div id="insert_row" >
+        
+    </div>
+    <h3>[UPDATE_ROW]</h3>
+    <div id="update_row" >
+        
+    </div>
+    <h3>[DELETE_ROW]</h3>
+    <div id="delete_row" >
+        
+    </div>
+    <h3>[FIND_ROW]</h3>
+    <div id="find_row" >
+        
+    </div>
+    <h3>[SEARCH_ROW]</h3>
+    <form action="http://localhost:3000/products/search/" method="post" id="search_row" >
+        <label for="key">Product Key:</label>
+        <select name="key" id="key">
+            <option value="name">Name</option>
+            <option value="description">Description</option>
+            <option value="sell_price">Sell Price</option>
+        </select>
+        <label for="value">Key Value:</label>
+        <input type="text" name="value" id="value" placeholder="Value" />
+        <button type="submit" >Search Row</button>
+    </form>
+    <div id="console" >
+        
+    </div>
+</body>
+</html>
