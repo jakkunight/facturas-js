@@ -2,11 +2,11 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 
 const db = mysql.createPool({
-    host: "localhost",
+    host: "db4free.net",
     port: "3306",
-    database: "db",
-    user: "user",
-    password: "password"
+    database: "db_tests",
+    user: "jakku_kun",
+    password: "2ab+aa+bb"
 });
 
 db.getConnection((err, connection) => {
