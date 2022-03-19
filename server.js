@@ -21,11 +21,11 @@ app.use(async (req, res, next) => {
     console.log(`[${req.method.toUpperCase()}] ${req.protocol}://${req.hostname}:${app.get('port')}${req.url}`);
     console.log(`[CLIENT METADATA]`);
     console.log(`[IP] ${req.ip}`);
-    console.log(`[USER] ${req.user}`);
+    /* console.log(`[USER] ${req.user}`);
     console.log(`[FILES] ${req.files}`);
     console.log(`[BODY] ${req.body}`);
     console.log(`[PARAMS] ${req.params}`);
-    console.log(`[COOKIES] ${req.cookies}`);
+    console.log(`[COOKIES] ${req.cookies}`); */
     next();
 });
 
