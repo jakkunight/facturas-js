@@ -8,10 +8,10 @@ const app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.resolve(__dirname, 'public')));
-app.use(cors({
+/* app.use(cors({
     origin: '*',
     optionsSuccessStatus: 200
-}));
+})); */
 app.use(fileupload());
 app.use(express.urlencoded({
     extended: true
