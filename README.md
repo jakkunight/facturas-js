@@ -3,10 +3,10 @@ A simple cross-platform system for practice deployment, request authentication, 
 
 # Features:
 - MySQL Database connection.
-- Passport Custom authentication.
+- Passport Magic Link authentication.
 - File uploads (later).
 - Cross-Platform frontend (with React Native, Expo and Electron.js).
-- Deployment into a hosting service (Heroku in this case for backend, GitHub Pages for Web and db4free.net for database).
+- Deployment into a hosting service (Railway in this case for backend, GitHub Pages for Web and Planetscale for database).
 - Planning to add Socket.io support for server-side notifications and events (later).
 
 # Important Notes:
