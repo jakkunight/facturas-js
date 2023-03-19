@@ -3,15 +3,15 @@ import { host, user, password } from "../.keys.json";
 
 const connect = async () => {
 	const pool = await createPool({
-		host: host,
+		host: host || "localhost",
 		port: 3306,
 		connectionLimit: 10,
 		database: "test",
 		ssl: {
 			rejectUnauthorized: true
 		},
-		user: user,
-		password: password
+		user: user || "root",
+		password: password || "karneval"
 	});
 	if(pool){
 		console.log("[SUCCESS] Database is ONLINE.");

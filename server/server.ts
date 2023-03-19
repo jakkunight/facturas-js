@@ -1,23 +1,43 @@
 import express, { Application } from "express";
-import morgan from "morgan";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import index from "./routes/index.routes";
+import cors from "cors";
+import api from "./routes/api.route";
 
 class Server {
 	private server: Application;
+	private corsOptions: Object;
 	private settings = () => {
 		this.server.set("port", this.port || process.env.PORT || 3000);
-		console.log(this.server.get("port"));
+		this.corsOptions = {
+			origin: [
+				"https://jakkunight.github.io/facturas-js",
+				"127.0.0.1",
+				"localhost"
+			],
+			optionsSuccessStatus: 204,
+			preflightContinue: true,
+			credentials: true,
+			allowedHeaders: [
+				"Content-Type",
+				"Authorization"
+			]
+		};
 	};
 	private middlewares = () => {
 		this.server.use(bodyParser.json());
 		this.server.use(bodyParser.urlencoded({extended: true}));
 		this.server.use(cookieParser());
-		this.server.use(morgan("dev"));
+		this.server.use(cors(this.corsOptions));
+		this.server.use((req, res, next) => {
+			console.log("[" + req.method + "]", req.protocol + "://" + req.hostname + ":" + this.server.get("port") + req.url);
+			console.log("[" + req.ip + "]", req.headers.origin);
+			next();
+		});
 	};
 	private routes = () => {
-		this.server.use(index);
+		this.server.route("*").options(cors(this.corsOptions));
+		this.server.use(api);
 	};
 	listen = async () => {
 		try{
@@ -29,6 +49,7 @@ class Server {
 		}
 	};
 	constructor(private port?: number | string){
+		this.corsOptions = {};
 		this.server = express();
 		this.settings();
 		this.middlewares();

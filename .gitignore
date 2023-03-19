@@ -105,3 +105,6 @@ dist
 
 # Password File:
 .keys.json
+
+# Dotenv files:
+.env
